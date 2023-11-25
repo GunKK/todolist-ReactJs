@@ -41,7 +41,7 @@ export default class AddCourse extends React.Component {
     
     render() {
         return (
-            <div>
+            <>
                 <form onSubmit={event => {this.handleSubmit(event)}}>
                     <h1>Add New course</h1>
                     <div>
@@ -74,7 +74,7 @@ export default class AddCourse extends React.Component {
                 <br />
                 <br />
                 <br />
-            </div>
+            </>
         )
     }
 }

@@ -19,12 +19,20 @@ export default class ListCouses extends React.Component {
         })
     }
 
+    deleteCourse = (courseId) => {
+        let coursesClone = [...this.state.listCourses];
+        coursesClone = coursesClone.filter(course => course.id !== courseId)
+        this.setState({
+            listCourses: coursesClone
+        })
+    }
+
     render() {
         return (
-            <div>
+            <>
                 <AddCourse addCourse={this.addCourse} />
-                <CourseInfo listCourses={this.state.listCourses} />
-            </div>
+                <CourseInfo listCourses={this.state.listCourses} deleteCourse={this.deleteCourse} />
+            </>
         )
     }
 }
