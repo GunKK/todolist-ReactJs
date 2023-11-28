@@ -1,38 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CourseInfo from "./CourseInfo";
 import AddCourse from "./AddCourse";
 
 
-export default class ListCouses extends React.Component {
+const ListCouses = () => {
 
-    state = {
-        listCourses: [
+    const [listCourses, setListCourses] = useState(
+        [
             {id: 1, name: "PHP", price: 300, teacher: "Nduchau"},
             {id: 2, name: "Ruby", price: 400, teacher: "Nduchau1"},
             {id: 3, name: "Java", price: 700, teacher: "Nduchau2"},
         ]
+    );
+
+    const addCourse = (newCourse) => {
+        setListCourses(
+            [newCourse,...listCourses]
+        );
     }
 
-    addCourse = (newCourse) => {
-        this.setState({
-            listCourses: [newCourse, ...this.state.listCourses]
-        })
-    }
-
-    deleteCourse = (courseId) => {
-        let coursesClone = [...this.state.listCourses];
+    const deleteCourse = (courseId) => {
+        let coursesClone = [...listCourses];
         coursesClone = coursesClone.filter(course => course.id !== courseId)
-        this.setState({
-            listCourses: coursesClone
-        })
+        setListCourses([...coursesClone]);
     }
 
-    render() {
-        return (
-            <>
-                <AddCourse addCourse={this.addCourse} />
-                <CourseInfo listCourses={this.state.listCourses} deleteCourse={this.deleteCourse} />
-            </>
-        )
-    }
+    useEffect(() => {
+        if (listCourses.length < 1) {
+            alert("You deleted all courses");
+        }
+    }, [listCourses])
+
+    return (
+        <>
+            <AddCourse addCourse={addCourse} />
+            <CourseInfo listCourses={listCourses} deleteCourse={deleteCourse} />
+        </>
+    )
 }
+
+export default ListCouses;
