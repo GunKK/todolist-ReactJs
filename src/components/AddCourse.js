@@ -1,80 +1,74 @@
 import React from "react";
+import { useState } from "react";
 
-export default class AddCourse extends React.Component {
+const AddCourse = (props) => {
 
-    state = {
-        name: "",
-        price: 0,
-        teacher: "",
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState(0);
+    const [teacher, setTeacher] = useState('');
+    const { addCourse } = props;
+
+    const changeName = (event) => {
+        setName(event.target.value);
     }
 
-    changeName = (event) => {
-        this.setState({
-            name: event.target.value
-        });
+    const changePrice = (event) => {
+        setPrice(event.target.value);
     }
 
-    changePrice = (event) => {
-        this.setState({
-            price: event.target.value
-        });
+    const changeTeacher = (event) => {
+        setTeacher(event.target.value);
     }
 
-    changeTeacher = (event) => {
-        this.setState({
-            teacher: event.target.value
-        });
-    }
-
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         const uniqueNumber = Math.floor(Math.random() * 1000000000);
         const newCourse = {
             id: uniqueNumber, 
-            name: this.state.name, 
-            price: this.state.price, 
-            teacher: this.state.teacher
+            name: name, 
+            price: price, 
+            teacher: teacher
         }
-        
-        this.props.addCourse(newCourse)
+                
+        addCourse(newCourse)
     }
-    
-    render() {
-        return (
-            <>
-                <form onSubmit={event => {this.handleSubmit(event)}}>
-                    <h1>Add New course</h1>
-                    <div>
-                        <label>Name</label>
-                        <input 
-                            type="text"
-                            onChange={event => {this.changeName(event)}}
-                            value={this.state.name}
-                        />
-                    </div>
-                    <div>
-                        <label>Price</label>
-                        <input 
-                            type="number"
-                            onChange={event => {this.changePrice(event)}}
-                            value={this.state.price}
-                        />
-                    </div>
-                    <div>
-                        <label>Teacher</label>
-                        <input 
-                            type="text"
-                            onChange={event => {this.changeTeacher(event)}}
-                            value={this.state.teache}
-                        />
-                    </div>
-                    <button type="submit">Add</button>
-                </form>
-                <br />
-                <br />
-                <br />
-                <br />
-            </>
-        )
-    }
+
+    return (
+        <>
+            <form onSubmit={event => {handleSubmit(event)}}>
+                <h1>Add New course</h1>
+                <div>
+                    <label>Name</label>
+                    <input 
+                        type="text"
+                        onChange={event => {changeName(event)}}
+                        value={name}
+                    />
+                </div>
+                <div>
+                    <label>Price</label>
+                    <input 
+                        type="number"
+                        onChange={event => {changePrice(event)}}
+                        value={price}
+                    />
+                </div>
+                <div>
+                    <label>Teacher</label>
+                    <input 
+                        type="text"
+                        onChange={event => {changeTeacher(event)}}
+                        value={teacher}
+                    />
+                </div>
+                <button type="submit">Add</button>
+            </form>
+            <br />
+            <br />
+            <br />
+            <br />
+        </>
+    )
 }
+
+export default AddCourse;
